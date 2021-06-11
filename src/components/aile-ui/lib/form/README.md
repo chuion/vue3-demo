@@ -1,18 +1,18 @@
-## aile-ui/form
+## aile-plus/form
 
 ### Intro 简介
 
-`aile-ui/form` 是一款表单组件，基于 `vue` 和 `element-ui` 进行的二次封装，无需繁琐的模板代码，所有的表单配置项均可通过属性传递，使你的代码更干净。
+`aile-plus/form` 是一款表单组件，基于 `Vue3` 和 `ElementPlus` 进行的二次封装，无需繁琐的模板代码，所有的表单配置项均可通过属性传递，使你的代码更干净。
 
 ### Feature 特色
 
-- `aile-ui/form` 没有预设表单组件，所有表单组件均通过 `render` 属性传递，通过灵活的 JSX 语法实现高度自定义组件，因此，它非常小巧，不过需要提前安装 `vue` 和 `element-ui` ；
+- `aile-plus/form` 没有预设表单组件，所有表单组件均通过 `render` 属性传递，通过灵活的 JSX 语法实现高度自定义组件，因此，它非常小巧，不过需要提前安装 `vue` 和 `element-ui` ；
 
-- `aile-ui/form` 底层采用 `$attrs` 和 `$listeners` 接收参数和监听事件，无缝对接 `element-ui` 中的 `Form` 文档板块，上手更快（所有 `<el-form>` 接受的参数 `<aile-form>` 都支持，所有 `<el-form-item>` 接受的参数，column都有相应的字段可以设置，所有的方法、事件和插槽，除了 [Form-Item Methods](https://element-plus.org/#/zh-CN/component/form#form-item-methods)，其他都支持）；
+- `aile-plus/form` 底层采用 `$attrs` 和 `$listeners` 接收参数和监听事件，无缝对接 `element-ui` 中的 `Form` 文档板块，上手更快（所有 `<el-form>` 接受的参数 `<aile-form>` 都支持，所有 `<el-form-item>` 接受的参数，column都有相应的字段可以设置，所有的方法、事件和插槽，除了 [Form-Item Methods](https://element-plus.org/#/zh-CN/component/form#form-item-methods)，其他都支持）；
 
 - 针对简单场景，可传递 `formatter` 属性进行格式化输出，在绑定了表单的情况下，可省略 `render` 和 `formatter` 属性，aile-form 会默认返回 `<span>` 标签包裹的表单值，当然，你还可以自定义当前的 `class` ！
 
-- 针对复杂表单，比如你的表单可能是下面这样，`aile-ui/form` 可以满足你！
+- 针对复杂表单，比如你的表单可能是下面这样，`aile-plus/form` 可以满足你！
 
 ```javascript
 export default {
@@ -43,10 +43,10 @@ export default {
 通过 `npm` 或者 `yarn` 安装项目
 
 ```bash
-npm i aile-ui
+npm i aile-plus
 
 # 或者
-yarn add aile-ui
+yarn add aile-plus
 ```
 
 ### Options 配置项
@@ -107,7 +107,7 @@ yarn add aile-ui
 
 ### Quick Start 快速开始
 
-注意：由于 `AileUI` 是基于 `ElementUI` 进行的二次开发，因此需全局引入ElementUI组件后方可正常使用
+注意：由于 `AilePlus` 是基于 `ElementPlus` 进行的二次开发，因此需全局引入ElementUI组件后方可正常使用
 
 - 引用组件，根据需要可全局引入或者局部引入
 
@@ -403,7 +403,7 @@ export default {
 
 2. 模块化开发
 
-当表单的复杂度进一步提高，模块化解耦就成了刚需，`aile-ui/form` 的解决方案：本质上是构造 column 数组。
+当表单的复杂度进一步提高，模块化解耦就成了刚需，`aile-plus/form` 的解决方案：本质上是构造 column 数组。
 
 以下为原生实现，或者直接查看 [最佳实践](#最佳实践)
 

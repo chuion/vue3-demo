@@ -1,9 +1,9 @@
-## aile-ui/input
+## aile-plus/input
 
 ### Intro 简介
 
-`aile-ui/input` 是一款 Input 组件，基于 `vue` 和 `element-ui` 进行的二次封装，可以根据需要配置宽度，是否默认开启清空（clearable）、清除前后空格（trim）
-- `aile-ui/input` 采用 `$attrs` 和 `$listeners` 接收参数和监听事件，无缝对接 `element-ui` 中的 `Input` 文档板块
+`aile-plus/input` 是一款 Input 组件，基于 `Vue3` 和 `ElementPlus` 进行的二次封装，可以根据需要配置宽度，是否默认开启清空（clearable）、清除前后空格（trim）
+- `aile-plus/input` 采用 `$attrs` 和 `$listeners` 接收参数和监听事件，无缝对接 `element-ui` 中的 `Input` 文档板块
 - 支持安装时个性化配置
 
 ### Install 安装
@@ -11,10 +11,10 @@
 通过 `npm` 或者 `yarn` 安装项目
 
 ```bash
-npm i aile-ui
+npm i aile-plus
 
 # 或者
-yarn add aile-ui
+yarn add aile-plus
 ```
 ### Options 配置项
 
@@ -54,7 +54,7 @@ yarn add aile-ui
 
 ### Quick Start 快速开始
 
-注意：由于 `AileUI` 是基于 `ElementUI` 进行的二次开发，因此需全局引入ElementUI组件后方可正常使用
+注意：由于 `AilePlus` 是基于 `ElementPlus` 进行的二次开发，因此需全局引入ElementUI组件后方可正常使用
 
 - 引入模块并初始化配置
 

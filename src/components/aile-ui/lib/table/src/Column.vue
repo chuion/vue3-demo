@@ -198,8 +198,10 @@ export default {
       if (this.column.formatter) {
         this.column.render = (scope) => {
           const { row, column, $index } = scope;
+          if (isEmpty(column)) return
           const property = column.property;
           const cellValue = property && this.getPropByPath(row, property, false).v;
+
           let value = this.column.formatter(row, column, cellValue, $index);
           if (isEmpty(value)) {
             value = this.mergeConfig.cellEmptyText;

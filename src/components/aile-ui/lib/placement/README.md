@@ -1,8 +1,8 @@
-# aile-ui/placement
+# aile-plus/placement
 
 ## Intro 简介
 
-`aile-ui/placement` 是一款占位组件，基于 `vue` ，无需繁琐的代码，方便需要占位的地方显示 init 状态和 empty 状态。
+`aile-plus/placement` 是一款占位组件，基于 `vue` ，无需繁琐的代码，方便需要占位的地方显示 init 状态和 empty 状态。
 
 - 通过 `empty` 属性来实现占位组件的显隐，通过 `loading` 属性可以激活 init 状态，最后组件可以进行“自销毁操作”，无需调用者手动控制。
 
@@ -11,9 +11,9 @@
 - 通过 `npm` 或者 `yarn` 安装项目
 
 ```bash
-npm i aile-ui
+npm i aile-plus
 # 或者
-yarn add aile-ui
+yarn add aile-plus
 ```
 
 ## Options 配置项
@@ -49,7 +49,7 @@ yarn add aile-ui
 
 ## Quick Start 快速开始
 
-注意：由于 `AileUI` 是基于 `ElementUI` 进行的二次开发，因此需全局引入 ElementUI 组件后方可正常使用
+注意：由于 `AilePlus` 是基于 `ElementPlus` 进行的二次开发，因此需全局引入 ElementPlus 组件后方可正常使用
 
 - 引入模块并初始化配置
 

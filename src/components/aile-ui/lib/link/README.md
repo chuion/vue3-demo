@@ -1,8 +1,8 @@
-## aile-ui/link
+## aile-plus/link
 
 ### Intro 简介
 
-`aile-ui/link` 是一款文字链接组件，基于 `vue` 和 `element-ui` 进行的二次封装。
+`aile-plus/link` 是一款文字链接组件，基于 `Vue3` 和 `ElementPlus` 进行的二次封装。
 - 支持对常见属性进行全局设置，使用更方便，管理更高效。
 - 采用 `$attrs` 和 `$listeners` 接收参数和监听事件，无缝对接 `element-ui` 中的 `Link` 文档板块；
 
@@ -11,10 +11,10 @@
 通过 `npm` 或者 `yarn` 安装项目
 
 ```bash
-npm i aile-ui
+npm i aile-plus
 
 # 或者
-yarn add aile-ui
+yarn add aile-plus
 ```
 
 ### Options 配置项
@@ -56,7 +56,7 @@ yarn add aile-ui
 
 ### Quick Start 快速开始
 
-注意：由于 `AileUI` 是基于 `ElementUI` 进行的二次开发，因此需全局引入ElementUI组件后方可正常使用
+注意：由于 `AilePlus` 是基于 `ElementPlus` 进行的二次开发，因此需全局引入ElementUI组件后方可正常使用
 
 - 引入模块并初始化配置
 

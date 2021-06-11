@@ -1,21 +1,20 @@
-## aile-ui/tooltip
+## aile-plus/tooltip
 
 ### Intro 简介
 
-`aile-ui/tooltip` 是一款Tooltip组件，基于 `vue` 和 `element-ui` 进行的二次封装
-- 可以根据需要配置皮肤、设置最大宽度。
-- 通过 `theme.js` 来实现`Tooltip`皮肤的配置;
-- 采用 `$attrs` 和 `$listeners` 接收参数和监听事件，无缝对接 `element-ui` 中的 `Tooltip` 文档板块；
+`aile-plus/tooltip` 是一款Tooltip组件，基于 `Vue3` 和 `ElementPlus` 进行的二次封装
+- 支持 `Tooltip` 主题配置;
+- 支持在安装时通过 `config.attrs` 设置全局属性，无缝对接 `ElementPlus` 中的 `Tooltip` 文档板块！
 
 ### Install 安装
 
 通过 `npm` 或者 `yarn` 安装项目
 
 ```bash
-npm i aile-ui
+npm i aile-plus
 
 # 或者
-yarn add aile-ui
+yarn add aile-plus
 ```
 
 ### Options 配置项

@@ -1,8 +1,8 @@
-## aile-ui/select
+## aile-plus/select
 
 ### Intro 简介
 
-`aile-ui/select` 是一款下拉框组件，基于 `vue` 和 `element-ui` 进行的二次封装，
+`aile-plus/select` 是一款下拉框组件，基于 `Vue3` 和 `ElementPlus` 进行的二次封装，
 - 所有的下拉框选项配置均可通过属性传递，使代码更干净。
 - 通过 `config` 属性来实现下拉框选项的配置;
 - 采用 `$attrs` 和 `$listeners` 接收参数和监听事件，无缝对接 `element-ui` 中的 `Select` 文档板块；
@@ -12,10 +12,10 @@
 通过 `npm` 或者 `yarn` 安装项目
 
 ```bash
-npm i aile-ui
+npm i aile-plus
 
 # 或者
-yarn add aile-ui
+yarn add aile-plus
 ```
 
 ### Options 配置项
@@ -94,7 +94,7 @@ yarn add aile-ui
 
 ### Quick Start 快速开始
 
-注意：由于 `AileUI` 是基于 `ElementUI` 进行的二次开发，因此需全局引入ElementUI组件后方可正常使用
+注意：由于 `AilePlus` 是基于 `ElementPlus` 进行的二次开发，因此需全局引入ElementUI组件后方可正常使用
 
 - 引入模块并初始化配置
 

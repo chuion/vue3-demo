@@ -1,8 +1,8 @@
-## aile-ui/dialog
+## aile-plus/dialog
 
 ### Intro 简介
 
-`aile-ui/dialog` 是一款对话框组件，基于 `vue` 和 `element-ui` 进行的二次封装。
+`aile-plus/dialog` 是一款对话框组件，基于 `Vue3` 和 `ElementPlus` 进行的二次封装。
 
 - 采用 `$attrs` 和 `$listeners` 接收参数和监听事件，无缝对接 `element-ui` 中的 `Dialog` 文档，上手快。
 - 支持安装时个性化配置
@@ -12,10 +12,10 @@
 通过 `npm` 或者 `yarn` 安装项目
 
 ```bash
-npm i aile-ui
+npm i aile-plus
 
 # 或者
-yarn add aile-ui
+yarn add aile-plus
 ```
 
 ### Options 配置项
@@ -72,7 +72,7 @@ yarn add aile-ui
 
 ### Quick Start 快速开始
 
-注意：由于 `AileUI` 是基于 `ElementUI` 进行的二次开发，因此需全局引入 ElementUI 组件后方可正常使用
+注意：由于 `AilePlus` 是基于 `ElementPlus` 进行的二次开发，因此需全局引入 ElementPlus 组件后方可正常使用
 
 - 引入模块并初始化配置
 

@@ -36,9 +36,7 @@
         v-bind="mergePaginationAttrs"
         @current-change="onPaginationCurrentChange"
       >
-        <template>
           <slot name="pagination" />
-        </template>
       </el-pagination>
     </section>
   </div>
@@ -88,12 +86,7 @@ export default {
     pagination: {
       type: Object,
       default: null,
-    },
-
-    tablePadding: {
-      type: Number,
-      default: undefined,
-    },
+    }
   },
   data() {
     return {
@@ -117,8 +110,9 @@ export default {
       return {
         ...DefaultTableAttrs, // 默认属性
         ...this.$aileTooltip.table, // 全局属性
+        ...this.$attrs,
         ...(this.table || {}), // 组件属性
-        [this.mergeConfig.heightMode]: this.tableHeight + 'px', // 计算表格高度
+        [this.mergeConfig.heightMode]: this.tableHeight + 'px' // 计算表格高度
       };
     },
 
@@ -127,7 +121,8 @@ export default {
       return {
         ...DefaultPaginationAttrs, // 默认属性
         ...this.$aileTooltip.pagination, // 全局属性
-        ...(this.pagination || {}), // 组件属性
+        ...this.$attrs,
+        ...(this.pagination || {}) // 组件属性
       };
     },
 
@@ -216,9 +211,9 @@ export default {
       });
     },
     mergeMethod({ column, rowIndex }) {
-      const index = this.merge.indexOf(column.property);
+      const index = this.mergeConfig.merge.indexOf(column.property);
       if (index > -1) {
-        const _row = this.mergeIndex[this.merge[index]][rowIndex];
+        const _row = this.mergeIndex[this.mergeConfig.merge[index]][rowIndex];
         const _col = _row > 0 ? 1 : 0;
         return {
           rowspan: _row,

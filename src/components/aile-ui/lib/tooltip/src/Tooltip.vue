@@ -1,7 +1,7 @@
 <template>
   <el-tooltip
     ref="aileTooltip"
-    v-bind="mergeProps"
+    v-bind="mergeAttrs"
     class="aile-tooltip"
     :popper-class="calcPopperClass"
   >
@@ -31,7 +31,7 @@ export default {
     }
   },
   computed: {
-    mergeProps() {
+    mergeAttrs() {
       return {
         ...DefaultProps, // 默认属性
         ...this.$aileTooltip.attrs, // 全局属性

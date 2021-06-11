@@ -1,7 +1,7 @@
 export const DefaultConfig = {
   paginationMarginTop: 0,
   tablePadding: 0,
-  cellEmptyText: "",
+  cellEmptyText: "-",
   heightMode: "height",
 };
 
