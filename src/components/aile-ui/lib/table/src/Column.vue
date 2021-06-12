@@ -138,7 +138,7 @@ export default {
     mergeAttrs() {
       const res = {
         ...DefaultTableColumnAttrs, // 默认属性
-        ...this.$aileTable.column, // 全局属性
+        ...this.$aileTable.tableColumn, // 全局属性
         ...this.tableColumn, // 表格设置的列属性
         ...this.column, // 列属性
       };

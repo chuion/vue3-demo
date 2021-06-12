@@ -33,8 +33,8 @@
       :style="{ marginTop: mergeConfig.paginationMarginTop + 'px' }"
     >
       <el-pagination
+        ref="elPagination"
         v-bind="mergePaginationAttrs"
-        @current-change="onPaginationCurrentChange"
       >
           <slot name="pagination" />
       </el-pagination>
@@ -57,6 +57,7 @@ const PAGER_HEIGHT = 40;
 export default {
   name: "AileTable",
 
+  inheritAttrs: false,
   components: { AileColumn },
   props: {
     columns: {
@@ -122,8 +123,9 @@ export default {
         ...DefaultPaginationAttrs, // 默认属性
         ...this.$aileTooltip.pagination, // 全局属性
         ...this.$attrs,
-        ...(this.pagination || {}) // 组件属性
-      };
+        ...(this.pagination || {}), // 组件属性
+        onCurrentChange: this.onPaginationCurrentChange
+      }
     },
 
     dataLength() {
@@ -147,7 +149,6 @@ export default {
   mounted() {
     this.resize(true);
     window.addEventListener("resize", this.resize);
-    console.log(this.$refs)
   },
   beforeUnmount() {
     window.removeEventListener("resize", this.resize);

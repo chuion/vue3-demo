@@ -11,7 +11,7 @@ AileTable.install = function(app, option = {}) {
   app.config.globalProperties.$aileTable = {
     config: option.config || {}, // 特殊配置项
     table: option.table || {}, // <el-table />的属性
-    column: option.column || {}, // <el-table-column />的属性
+    tableColumn: option.tableColumn || {}, // <el-table-column />的属性
     pagination: option.pagination || {} // <el-pagination />的属性
   };
   

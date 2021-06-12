@@ -4,7 +4,7 @@
 
 `aile-plus/table` 是一款表格组件，基于 `Vue3` 和 `ElementPlus` 进行的二次封装，无需繁琐的模板代码，所有的表格列配置项均可通过属性传递，使你的代码更干净。
 
-- 通过 `column` 属性来实现表格列的配置，灵活的 `JSX` 语法便于高度自定义表格组件；
+- 通过 `columns` 属性来实现表格列的配置，灵活的 `JSX` 语法便于高度自定义表格组件；
 - 支持全局配置属性，包括 `config`、`table`、`column`、`pagination`；
 - 采用 `$attrs` 接收参数和监听事件，无缝对接 `ElementPlus` 中的 `Table` `Pagination` 文档板块，包含自定义 `slot` 插槽，上手更快；
 - `column` 每列配置，最低限度仅传递 `prop` 和 `label` 属性，就可实现标准值输出，也可以使用 `formatter` 或 `render` 属性进行格式化输出；
@@ -24,12 +24,12 @@ yarn add aile-plus
 
 配置项内容可在全局引入时设置，或者直接使用 `<aile-table {...options} />` ，需注意：直接使用的优先级高于全局配置
 
-|    参数    | 数据类型 | 默认值 |                                    说明                                     |
-| :--------: | :------: | :----: | :-------------------------------------------------------------------------: |
-|   config   |  Object  |   {}   |                       [Config配置项](#config-配置项)                        |
-|   table    |  Object  |   {}   |      [ElTable Props](https://element-plus.org/#/zh-CN/component/table)      |
-|   column   |  Object  |   {}   |   [ElTabelColumn Props](https://element-plus.org/#/zh-CN/component/table)   |
-| pagination |  Object  |   {}   | [ElPagination Props](https://element-plus.org/#/zh-CN/component/pagination) |
+|    参数     | 数据类型 | 默认值 |                                    说明                                     |
+| :---------: | :------: | :----: | :-------------------------------------------------------------------------: |
+|   config    |  Object  |   {}   |                       [Config配置项](#config-配置项)                        |
+|    table    |  Object  |   {}   |      [ElTable Props](https://element-plus.org/#/zh-CN/component/table)      |
+| tableColumn |  Object  |   {}   |   [ElTabelColumn Props](https://element-plus.org/#/zh-CN/component/table)   |
+| pagination  |  Object  |   {}   | [ElPagination Props](https://element-plus.org/#/zh-CN/component/pagination) |
 
 ### Config 配置项
 
@@ -151,7 +151,7 @@ app.use(AileTable, {
       :data="tableData"
       :columns="tableColumns"
       :config="{
-        merge: ['gender']
+        merge: ['gender'],
       }"
       :table="{
         stripe: true,
@@ -169,6 +169,7 @@ app.use(AileTable, {
       @current-change="handleCurrentChange"
       @page-current-change="handlePageChange"
       @size-change="handleSizeChange"
+      v-model:currentPage="currentPage"
     >
       <template #pagination>
         <span>Guess Page Game</span>
