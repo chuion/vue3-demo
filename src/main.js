@@ -37,5 +37,14 @@ createApp(App)
         },
       ],
     },
+    select: {
+      attrs: {
+        clearable: true,
+        filterable: true
+      },
+      config: {
+        showTooltip: true
+      }
+    }
   })
   .mount("#app");

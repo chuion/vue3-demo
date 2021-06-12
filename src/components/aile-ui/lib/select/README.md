@@ -38,10 +38,10 @@ yarn add aile-plus
 
 |      参数       |     数据类型     |   默认值   |       可选值        |                                                    说明                                                     |
 | :-------------: | :--------------: | :--------: | :-----------------: | :---------------------------------------------------------------------------------------------------------: |
-|     notNull     |     Boolean      |   false    |     true/false      |                                            请求参数是否不得为空                                             |
-|    itemLabel    | String/Function  |     —      |          —          |                                设置 el-option 的 label,不传则使用遍历项本身                                 |
-|    itemValue    | String/Function  |     —      |          —          |                                设置 el-option 的 value,不传则使用遍历项本身                                 |
-|   itemDisable   | String/Function  |     —      |          —          |                                    判断是否禁用的字段名，默认为 disabled                                    |
+|     nonEmpty     |     Boolean      |   false    |     true/false      |                                            请求参数是否不得为空                                             |
+|    label    | String/Function  |     —      |          —          |                                设置 el-option 的 label,不传则使用遍历项本身                                 |
+|    value    | String/Function  |     —      |          —          |                                设置 el-option 的 value,不传则使用遍历项本身                                 |
+|   disabled   | String/Function  |     —      |          —          |                                    判断是否禁用的字段名，默认为 disabled                                    |
 |    queryKey     |      String      |     —      |          —          |                                             请求时的动态字段名                                              |
 |  requestParams  |      Object      |     —      |          —          |                                              请求时的静态参数                                               |
 |     method      |     Function     |     —      |          —          | 请求 API，传入后组件 remote、filterable 将置 true，remote-method 方法将使用该请求 API（与 dataSource 互斥） |
@@ -144,8 +144,8 @@ Vue.use(AileSelect, {
   v-model="form.target_url"
   disabled
   :config="{
-    itemLabel: 'label',
-    itemValue: 'value',
+    label: 'label',
+    value: 'value',
     dataSource: [{ label: '下拉1', value: 'op1' }]
   }"
 />
@@ -158,8 +158,8 @@ Vue.use(AileSelect, {
   clearable
   filterable
   config={{
-    itemLabel: 'label',
-    itemValue: 'value',
+    label: 'label',
+    value: 'value',
     dataSource: CategoryPlateOptions
   }}
 />

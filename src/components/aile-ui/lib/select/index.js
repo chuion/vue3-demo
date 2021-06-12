@@ -1,22 +1,17 @@
 import AileSelect from './src/Select.vue';
+import { checkType } from "../../utils";
 
 AileSelect.install = function(app, option = {}) {
-  const defaultOption = {
-    remote: false,
-    filterable: false,
-    popperAppendToBody: false,
-    defaultFirstOption: true,
-    config: {}
-  };
-
-  if ({}.toString.call(option.config) !== '[object Object]') {
-    option.config = {};
+  // 检查参数安全
+  if (checkType(option) !== "object") {
+    throw Error(`Invalid plugin option: Expect object, got ${checkType(option)}!`);
   }
-
+  // 挂载全局配置
   app.config.globalProperties.$aileSelect = {
-    ...defaultOption,
-    ...option
+    config: option.config || {},
+    attrs: option.attrs || {},
   };
+  // 注册全局组件
   app.component(AileSelect.name, AileSelect);
 };
 
