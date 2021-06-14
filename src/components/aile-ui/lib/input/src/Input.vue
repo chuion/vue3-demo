@@ -1,10 +1,9 @@
 <template>
   <el-input
     ref="input"
-    v-bind="$attrs"
+    v-bind="mergeAttrs"
     :style="calcStyle"
     :class="[$attrs['show-word-limit'] && 'show-word-limit']"
-    :clearable="shouldClearable"
     @change="handleChange"
   >
     <template v-if="$slots.prepend" #prepend>
@@ -23,19 +22,12 @@
 </template>
 
 <script>
-const DefaultConfig = {
-  width: undefined,
-  trimBeforeChange: false
-};
+import { DefaultConfig, DefaultInputAttrs } from './config'
 
 export default {
   name: 'AileInput',
 
   props: {
-    clearable: {
-      type: Boolean,
-      default: undefined
-    },
     config: {
       type: Object,
       default: () => ({})
@@ -49,10 +41,12 @@ export default {
         ...this.config
       };
     },
-    shouldClearable() {
-      return typeof this.clearable === 'undefined'
-        ? this.$aileInput.clearable
-        : this.clearable;
+    mergeAttrs() {
+      return  {
+        ...DefaultInputAttrs,
+        ...this.$aileInput.attrs,
+        ...this.$attrs
+      }
     },
     calcStyle() {
       const style = {};
@@ -62,7 +56,7 @@ export default {
   },
   methods: {
     handleChange(val) {
-      if (this.mergeConfig.trimBeforeChange) {
+      if (this.mergeConfig.lazyTrim) {
         val = val.trim();
         this.$emit('update:modelValue', val);
       }

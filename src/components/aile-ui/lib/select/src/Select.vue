@@ -17,7 +17,7 @@
 
     <slot>
       <component
-        :is="tooltipComponent"
+        :is="mergeConfig.tooltipComponent"
         v-for="item in options"
         :key="JSON.stringify(item)"
         v-bind="mergeTooltipAttrs"

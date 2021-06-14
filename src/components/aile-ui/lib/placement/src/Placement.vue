@@ -3,37 +3,37 @@
     v-if="state !== 'hide'"
     class="aile-placement"
     :class="`aile-placement--${state}`"
-    :style="style"
+    :style="calcStyle"
   >
     <template v-if="state === 'init'">
       <slot name="init">
         <div class="aile-placement__img">
-          <template v-if="calcInitSrc">
+          <template v-if="mergeConfig.initImageSrc">
             <img
-              :src="calcInitSrc"
+              :src="mergeConfig.initImageSrc"
               class="img"
-              :style="imgStyle"
+              :style="imageStyle"
             >
           </template>
         </div>
         <div class="aile-placement__desc">
-          {{ calcInitText }}
+          {{ mergeConfig.initText }}
         </div>
       </slot>
     </template>
     <template v-if="state === 'empty'">
       <slot name="empty">
         <div class="aile-placement__img">
-          <template v-if="calcEmptySrc">
+          <template v-if="mergeConfig.emptyImageSrc">
             <img
-              :src="calcEmptySrc"
+              :src="mergeConfig.emptyImageSrc"
               class="img"
-              :style="imgStyle"
+              :style="imageStyle"
             >
           </template>
         </div>
         <div class="aile-placement__desc">
-          {{ calcEmptyText }}
+          {{ mergeConfig.emptyText }}
         </div>
       </slot>
     </template>
@@ -41,47 +41,29 @@
 </template>
 
 <script>
+import { DefaultConfig } from './config';
+
 export default {
   name: 'AilePlacement',
   props: {
-    loading: {
-      type: Boolean,
-      default: undefined
+    config: {
+      type: Object,
+      default: () => ({})
     },
     empty: {
       required: true,
       type: Boolean,
       default: undefined
     },
-    emptySrc: {
-      type: String,
-      default: undefined
-    },
-    emptyText: {
-      type: String,
-      default: undefined
-    },
-    initSrc: {
-      type: String,
-      default: undefined
-    },
-    initText: {
-      type: String,
+    loading: {
+      type: Boolean,
       default: undefined
     },
     width: {
       type: String,
-      default: '100%'
-    },
-    height: {
-      type: String,
-      default: '100%'
-    },
-    imgWidth: {
-      type: String,
       default: undefined
     },
-    imgHeight: {
+    height: {
       type: String,
       default: undefined
     }
@@ -90,35 +72,24 @@ export default {
     return { state: undefined };
   },
   computed: {
-    style() {
-      return {
-        width: this.width,
-        height: this.height
-      };
-    },
-    imgStyle() {
-      return {
-        width: this.imgWidth || this.mergeConfig.imgWidth || '76px',
-        height: this.imgHeight || this.mergeConfig.imgHeight || '76px'
-      };
-    },
     mergeConfig() {
       return {
-        ...this.$ailePlacement,
+        ...DefaultConfig,
+        ...this.$ailePlacement.config,
         ...this.config
+      }
+    },
+    calcStyle() {
+      return {
+        width: this.width || this.mergeConfig.width,
+        height: this.height || this.mergeConfig.height
       };
     },
-    calcInitText() {
-      return this.initText || this.mergeConfig.initText;
-    },
-    calcEmptyText() {
-      return this.emptyText || this.mergeConfig.emptyText;
-    },
-    calcInitSrc() {
-      return this.initSrc || this.mergeConfig.initSrc;
-    },
-    calcEmptySrc() {
-      return this.emptySrc || this.mergeConfig.emptySrc;
+    imageStyle() {
+      return {
+        width: this.mergeConfig.imageWidth,
+        height: this.mergeConfig.imageHeight
+      };
     }
   },
   watch: {

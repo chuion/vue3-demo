@@ -1,14 +1,17 @@
 import AilePlacement from './src/Placement.vue';
+import { checkType } from "../../utils";
 
 AilePlacement.install = function(app, option = {}) {
-  const defaultOption = {
-    initText: '初始化中',
-    emptyText: '暂无数据'
-  };
+  // 检查参数安全
+  if (checkType(option) !== "object") {
+    throw Error(`Invalid plugin option: Expect object, got ${checkType(option)}!`);
+  }
+  // 挂载全局配置
   app.config.globalProperties.$ailePlacement = {
-    ...defaultOption,
-    ...option
+    config: option.config || {},
+    attrs: option.attrs || {},
   };
+  // 注册全局组件
   app.component(AilePlacement.name, AilePlacement);
 };
 

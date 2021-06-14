@@ -2,10 +2,8 @@
   <el-link
     class="aile-link"
     :class="[mergeConfig.ellipsis && 'is-ellipsis']"
-    v-bind="$attrs"
     :style="calcStyle"
-    :underline="calcUnderline"
-    @click="$emit('click')"
+    v-bind="mergeAttrs"
   >
     <slot />
     <template #icon>
@@ -15,27 +13,13 @@
 </template>
 
 <script>
-const DefaultConfig = {
-  // 是否支持超出部分省略号显示
-  ellipsis: false,
-
-  // Link的最大宽度
-  maxWidth: '100%',
-
-  // 自定义inputInner的最大宽度，不传则使用默认计算规则
-  // 无icon属性及icon插槽时，默认100%，加入icon属性减去20px，加入icon插槽再减去20px
-  inputMaxWidth: ''
-};
+import { DefaultConfig, DefaultLinkAttrs } from './config.js';
 
 export default {
   name: 'AileLink',
 
   inheritAttrs: false,
   props: {
-    underline: {
-      type: Boolean,
-      default: undefined
-    },
     config: {
       type: Object,
       default: () => ({})
@@ -49,13 +33,20 @@ export default {
         ...this.config
       };
     },
-    calcUnderline() {
-      if (this.underline === undefined) {
-        return this.$aileLink.underline;
+    mergeAttrs() {
+      return {
+        ...DefaultLinkAttrs,
+        ...this.$aileLink.attrs,
+        ...this.$attrs
       }
-      return this.underline;
     },
     calcStyle() {
+      if (this.mergeConfig.inputMaxWidth) {
+        return {
+          '--maxWidth': this.mergeConfig.maxWidth,
+          '--inputMaxWidth': this.mergeConfig.inputMaxWidth
+        }
+      }
       const inputMaxWidth = ['100%'];
       if (this.$attrs.icon) inputMaxWidth.push('20px');
       if (this.$slots.icon) inputMaxWidth.push('20px');

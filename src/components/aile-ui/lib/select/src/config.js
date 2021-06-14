@@ -59,6 +59,12 @@ export const DefaultConfig = {
    */
 
   /**
+   * remoteMethod 为远程请求函数
+   * 参数可选类型: Function 需要返回 Promise
+   */
+  remoteMethod: undefined,
+
+  /**
    * 当queryField的值为空时，是否允许继续发送请求
    * 参数可选类型: Boolean
    */
@@ -71,10 +77,11 @@ export const DefaultConfig = {
   scrollable: true,
 
   /**
-   * remoteMethod 为远程请求函数
-   * 参数可选类型: Function 需要返回 Promise
+   * 是否只执行一次初始化请求
+   * 参数可选类型: Boolean
+   * 用于仅将API传入并获取下拉列表，但不需要远程搜索
    */
-  remoteMethod: undefined,
+  onceRequest: false,
 
   /**
    * 远程搜索的参数名称
@@ -83,64 +90,52 @@ export const DefaultConfig = {
   queryField: "",
 
   /**
-   * 设置el-option是否需要显示tooltip
-   * 参数可选类型: [Boolean, Function]
+   * 分页：当前页参数名称
+   * 参数可选类型: String
    */
-  // 远程搜索的其他参数，会和queryField合并
-  // 参数可选类型: Object
-  requestParams: {},
-
-  /**
-   * 设置el-option是否需要显示tooltip
-   * 参数可选类型: [Boolean, Function]
-   */
-  // 是否只执行一次初始化请求（用于仅将API传入并获取下拉列表，但不需要远程搜索）
-  onceRequest: false,
-
-  /**
-   * 设置el-option是否需要显示tooltip
-   * 参数可选类型: [Boolean, Function]
-   */
-  // pageField,sizeField 为分页字段名称
   pageField: "page_index",
+
   /**
-   * 设置el-option是否需要显示tooltip
-   * 参数可选类型: [Boolean, Function]
+   * 分页：页容量参数名称
+   * 参数可选类型: String
    */
   sizeField: "page_size",
 
   /**
-   * 设置el-option是否需要显示tooltip
-   * 参数可选类型: [Boolean, Function]
-   */
+ * 分页：页容量默认值
+ * 参数可选类型: Number
+ */
   // 页容量
   pageSize: 20,
 
   /**
-   * 设置el-option是否需要显示tooltip
-   * 参数可选类型: [Boolean, Function]
+   * 远程搜索的其他参数，会和queryField合并
+   * 参数可选类型: Object
    */
-  // respDataField/respTotalField 请求结果的data/total字段名称
-  respDataField: "data",
+  requestParams: {},
+
   /**
-   * 设置el-option是否需要显示tooltip
-   * 参数可选类型: [Boolean, Function]
+   * 请求返回结果数据字段名称，默认为data
+   * 参数可选类型: String
+   */
+  respDataField: "data",
+
+  /**
+   * 请求返回结果总数字段名称，默认为total
+   * 参数可选类型: String
    */
   respTotalField: "total",
 
   /**
-   * 设置el-option是否需要显示tooltip
-   * 参数可选类型: [Boolean, Function]
+   * 请求成功后事件回调
+   * 参数可选类型: Function
    */
-  // 请求成功后事件回调
-  // 参数可选类型: Function
   respFormatter: (list) => list,
 
   /**
-   * 设置el-option是否需要显示tooltip
-   * 参数可选类型: [Boolean, Function]
+   * 所有请求均展示loading效果，默认为false，仅展示初次加载的loading
+   * 参数可选类型: Boolean
    */
-  // 所有请求均展示loading效果，默认为false，仅展示初次加载的loading
   showEachLoading: false,
 };
 
