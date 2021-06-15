@@ -1,5 +1,5 @@
-import { checkType } from '../../utils';
 import AileTable from './src/Table.vue';
+import { checkType } from '../../utils';
 
 AileTable.install = function(app, option = {}) {
   // 检查参数安全

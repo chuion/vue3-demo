@@ -16,7 +16,12 @@ createApp(App)
   .use(ElementPlus)
   .use(AileUI, {
     form: {
-      emptyText: "默认文字",
+      config: {
+        emptyText: "默认文字",
+      },
+      form: {
+        labelWidth: '100px'
+      }
     },
     tooltip: {
       attrs: {

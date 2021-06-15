@@ -1,21 +1,20 @@
-/*
- * @Author: songhc
- * @Date: 2021-06-04 18:37:03
- * @LastEditTime: 2021-06-07 14:08:08
- * @LastEditors: songhc
- * @FilePath: /vite-project/src/components/aile-ui/lib/form/index.js
- */
 import AileForm from './src/Form.vue';
+import { checkType } from '../../utils';
 
 AileForm.install = function(app, option = {}) {
-  const defaultOption = {
-    emptyText: '',
-    formClass: ''
-  };
+  // 检查参数安全
+  if (checkType(option) !== "object") {
+    throw Error(`Invalid plugin option: Expect object, got ${checkType(option)}!`);
+  }
+
+  // 挂载全局配置
   app.config.globalProperties.$aileForm = {
-    ...defaultOption,
-    ...option
+    config: option.config || {}, // 特殊配置项
+    form: option.form || {}, // <el-form />的属性
+    formItem: option.formItem || {}, // <el-form-item />的属性
   };
+
+  // 注册全局组件
   app.component(AileForm.name, AileForm);
 };
 

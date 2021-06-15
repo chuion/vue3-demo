@@ -1,22 +1,75 @@
 <template>
-  <aile-input v-model="value" />
+  <aile-form :model="form" :columns="columns" />
 </template>
 
 <script lang="jsx">
+const genderMap = {
+  1: "先生",
+  0: "女士",
+};
 export default {
   data() {
     return {
-      value: "123",
-      list: ["aaa", "bbb", "ccc"],
+      form: {
+        name: {
+          first: "chuion",
+          last: "song",
+        },
+        gender: 1,
+        age: 20,
+        hobby: [{ sport: "篮球" }, { sport: "足球" }],
+        money: ''
+      },
     };
   },
-  methods: {
-    handleClick(e) {
-     console.log('>>> click: ', e)
-    //  e.preventDefault()
-    //  return false
-    }
-  }
+  computed: {
+    columns() {
+      return [
+        {
+          prop: "name",
+          label: "姓名",
+          children: [
+            {
+              prop: "last",
+              label: "姓氏",
+            },
+            {
+              prop: "first",
+              label: "名字",
+            },
+          ],
+        },
+        {
+          prop: "gender",
+          label: "性别",
+          formatter: (form) => genderMap[form.gender],
+        },
+        {
+          prop: "age",
+          label: "年龄",
+          render: (form) => <el-tag>{form.age}</el-tag>,
+        },
+        {
+          prop: "hobby",
+          label: '兴趣',
+          labelPosition: 'center',
+          rules: {required: true},
+          items: (form, root) => [
+            {
+              prop: "sport",
+              label: '运动',
+              value: '等待输入',
+              required: true,
+              render: form => <aile-input v-model={form.sport} />
+            },
+          ],
+        },
+        {
+          prop: 'money'
+        }
+      ];
+    },
+  },
 };
 </script>
 
