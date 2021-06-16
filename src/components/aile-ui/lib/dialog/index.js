@@ -1,21 +1,17 @@
 import AileDialog from './src/Dialog.vue';
+import { checkType } from "../../utils";
 
 AileDialog.install = function(app, option = {}) {
-  const defaultOption = {
-    width: '50%',
-    appendToBody: null,
-    closeOnClickModal: true,
-    closeOnPressEscape: true
-  };
-
-  if ({}.toString.call(option.config) !== '[object Object]') {
-    option.config = {};
+  // 检查参数安全
+  if (checkType(option) !== "object") {
+    throw Error(`Invalid plugin option: Expect object, got ${checkType(option)}!`);
   }
-
+  // 挂载全局配置
   app.config.globalProperties.$aileDialog = {
-    ...defaultOption,
-    ...option
+    config: option.config || {},
+    attrs: option.attrs || {},
   };
+  // 注册全局组件
   app.component(AileDialog.name, AileDialog);
 };
 

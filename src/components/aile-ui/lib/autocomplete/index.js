@@ -1,11 +1,17 @@
 import AileAutoComplete from './src/AutoComplete.vue';
+import { checkType } from "../../utils";
 
 AileAutoComplete.install = function(app, option = {}) {
-  const defaultOption = { clearable: false, valueKey: 'query' };
-  if ({}.toString.call(option.config) !== '[object Object]') {
-    option.config = { trim: false, width: undefined };
+  // 检查参数安全
+  if (checkType(option) !== "object") {
+    throw Error(`Invalid plugin option: Expect object, got ${checkType(option)}!`);
   }
-  app.config.globalProperties.$aileAutocomplete = { ...defaultOption, ...option };
+  // 挂载全局配置
+  app.config.globalProperties.$aileAutocomplete = {
+    config: option.config || {},
+    attrs: option.attrs || {},
+  };
+  // 注册全局组件
   app.component(AileAutoComplete.name, AileAutoComplete);
 };
 

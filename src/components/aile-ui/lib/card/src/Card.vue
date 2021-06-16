@@ -1,14 +1,7 @@
 <template>
-  <div
-    :style="{
-      width,
-      height,
-      minHeight,
-    }"
-    :class="['aile-card', `is-${calcShadow}-shadow`]"
-  >
+  <div :style="cardStyle" :class="cardClassList">
     <template v-if="calcTitle">
-      <div :class="['aile-card__header', headerClass]" :style="headerStyle">
+      <div :class="headerClassList" :style="headerStyleList">
         <slot name="title">
           <!-- 普通标题 -->
           <span v-if="isSimpleTitle" class="title">{{ calcTitle }}</span>
@@ -23,14 +16,14 @@
           </el-tabs>
         </slot>
         <!-- 右侧slot -->
-        <slot name="header" />
+        <slot name="sub" />
       </div>
     </template>
 
     <div
       v-loading="loading"
-      :class="['aile-card__content', contentClass]"
-      :style="contentStyle"
+      :class="['aile-card__body', bodyClass]"
+      :style="bodyStyle"
     >
       <template v-if="loading || showEmpty">
         <slot name="empty">
@@ -45,11 +38,17 @@
 </template>
 
 <script>
+import { mergeClass } from "../../../utils";
+import { DefaultConfig } from "./config";
 export default {
   name: "AileCard",
 
   inheritAttrs: false,
   props: {
+    config: {
+      type: Object,
+      default: () => ({})
+    },
     // Card标题
     title: {
       type: [String, Array],
@@ -61,21 +60,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    // Card宽度，默认100%
-    width: {
-      type: String,
-      default: "100%",
-    },
-    // Card高度，默认100%
-    height: {
-      type: String,
-      default: "100%",
-    },
-    // Card最小高度，默认'auto'
-    minHeight: {
-      type: String,
-      default: "auto",
-    },
     // showEmpty为true时，展示空白占位组件
     showEmpty: {
       type: Boolean,
@@ -86,28 +70,23 @@ export default {
       type: Boolean,
       default: false,
     },
-    shadow: {
-      type: String,
-      default: undefined,
-    },
     activeTitle: {
       type: String,
       default: "",
     },
-
     headerClass: {
-      type: String,
-      default: "",
-    },
-    contentClass: {
-      type: String,
+      type: [String, Array, Object],
       default: "",
     },
     headerStyle: {
       type: Object,
       default: () => ({}),
     },
-    contentStyle: {
+    bodyClass: {
+      type: [String, Array, Object],
+      default: "",
+    },
+    bodyStyle: {
       type: Object,
       default: () => ({}),
     },
@@ -116,6 +95,14 @@ export default {
     return { selectedTab: "" };
   },
   computed: {
+    mergeConfig() {
+      return {
+        ...DefaultConfig,
+        ...this.$aileCard.config,
+        ...this.config,
+        ...this.$attrs,
+      };
+    },
     calcTitle() {
       if (this.isSimpleTitle) {
         return this.title;
@@ -125,19 +112,57 @@ export default {
         value: item.value || item,
       }));
     },
-    calcShadow() {
-      if (this.shadow === undefined) {
-        return this.$aileCard.shadow;
-      }
-      return this.shadow;
-    },
     isSimpleTitle() {
       return typeof this.title === "string";
+    },
+    cardStyle() {
+      const { width, height, minHeight } = this.mergeConfig;
+      return {
+        width,
+        height,
+        minHeight,
+        ...(this.$attrs.style || {}),
+      };
+    },
+    cardClassList() {
+      return mergeClass(
+        [
+          "aile-card",
+          this.mergeConfig.shadow && `is-${this.mergeConfig.shadow}-shadow`,
+        ],
+        this.$attrs.class
+      );
+    },
+    headerClassList() {
+      return mergeClass(
+        "aile-card__body",
+        this.mergeConfig.headerClass,
+        this.headerClass
+      );
+    },
+    headerStyleList() {
+      return {
+        ...this.mergeConfig.headerStyle,
+        ...this.headerStyle,
+      };
+    },
+    bodyClassList() {
+      return mergeClass(
+        "aile-card__body",
+        this.mergeConfig.bodyClass,
+        this.bodyClass
+      );
+    },
+    bodyStyleList() {
+      return {
+        ...this.mergeConfig.bodyStyle,
+        ...this.bodyStyle,
+      };
     },
   },
   watch: {
     selectedTab(val) {
-      this.$emit("change-title", val);
+      this.$emit("change", val);
     },
     activeTitle(val) {
       this.setActiveTitle(val);
@@ -219,16 +244,19 @@ export default {
   user-select: none;
 }
 
-.aile-card__content {
+.aile-card__body {
   position: relative;
   width: 100%;
   height: calc(100% - 40px);
   padding: 10px 18px;
   box-sizing: border-box;
   background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.aile-card__content .empty-place {
+.aile-card__body .empty-place {
   width: 100%;
   height: 100%;
   display: flex;

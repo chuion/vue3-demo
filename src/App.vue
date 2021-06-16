@@ -1,5 +1,5 @@
 <template>
-  <aile-form :model="form" :columns="columns" />
+  <aile-avatar />
 </template>
 
 <script lang="jsx">
@@ -18,8 +18,9 @@ export default {
         gender: 1,
         age: 20,
         hobby: [{ sport: "篮球" }, { sport: "足球" }],
-        money: ''
+        money: "",
       },
+      showDialog: false,
     };
   },
   computed: {
@@ -51,22 +52,31 @@ export default {
         },
         {
           prop: "hobby",
-          label: '兴趣',
-          labelPosition: 'center',
-          rules: {required: true},
+          label: "兴趣",
+          labelPosition: "center",
+          rules: { required: true },
           items: (form, root) => [
             {
               prop: "sport",
-              label: '运动',
-              value: '等待输入',
+              label: "运动",
+              value: "等待输入",
               required: true,
-              render: form => <aile-input v-model={form.sport} />
+              render: (form) => <aile-input v-model={form.sport} />,
             },
           ],
         },
         {
-          prop: 'money'
-        }
+          prop: "money",
+        },
+        {
+          label: "操作",
+          render: () => {
+            const handleDialog = () => {
+              this.showDialog = true;
+            };
+            return <el-button onClick={handleDialog}>打开对话框</el-button>;
+          },
+        },
       ];
     },
   },

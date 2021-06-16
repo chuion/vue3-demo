@@ -1,71 +1,38 @@
 <template>
   <el-avatar
     class="aile-avatar"
-    v-bind="$attrs"
-    :fit="calcFit"
-    :shape="calcShape"
-    :src="mergeConfig.srcFormatter(src)"
-    :style="calcStyle"
+    v-bind="mergeAttrs"
+    :src="avatarSrc"
+    :style="avatarStyle"
   >
     <slot>
-      <span
-        class="aile-avatar__label"
-        :style="mergeConfig.labelStyle"
-      >
-        {{ mergeConfig.labelFormatter(label || mergeConfig.defaultLabel) }}
+      <span class="aile-avatar__label" :style="mergeConfig.labelStyle">
+        {{ mergeConfig.labelFormatter(label || mergeConfig.labelPlaceholder) }}
       </span>
     </slot>
   </el-avatar>
 </template>
 
 <script>
-const DefaultConfig = {
-  labelStyle: {
-    fontSize: '16px',
-    backgroundColor: '#3381D0'
-  },
-  defaultLabel: 'Unknown',
-  labelFormatter: name => name.slice(0, 2).toUpperCase(),
-  srcFormatter: src => {
-    if (!src) {
-      return '';
-    }
-    if (src.startsWith('http')) {
-      return src;
-    }
-    return 'data:image/jpeg;base64,' + src;
-  }
-};
+import { DefaultConfig, DefaultAvatarAttrs } from "./config";
 
 export default {
-  name: 'AileAvatar',
+  name: "AileAvatar",
 
   inheritAttrs: false,
   props: {
-    fit: {
-      type: String,
-      default: undefined
-    },
-    shape: {
-      type: String,
-      default: undefined
+    config: {
+      type: Object,
+      default: () => ({}),
     },
     src: {
       type: String,
-      default: ''
+      default: "",
     },
     label: {
       type: String,
-      default: ''
+      default: "",
     },
-    size: {
-      type: String,
-      default: ''
-    },
-    config: {
-      type: Object,
-      default: () => ({})
-    }
   },
   computed: {
     mergeConfig() {
@@ -73,36 +40,31 @@ export default {
         ...DefaultConfig,
         ...this.$aileAvatar.config,
         ...this.config,
-        labelStyle: {
-          ...(DefaultConfig.labelStyle || {}),
-          ...(this.$aileAvatar.config.labelStyle || {}),
-          ...(this.config.labelStyle || {})
-        }
       };
     },
-    calcFit() {
-      if (this.fit === undefined) {
-        return this.$aileAvatar.fit;
-      }
-      return this.fit;
+    mergeAttrs() {
+      return {
+        ...DefaultAvatarAttrs,
+        ...this.$aileAvatar.attrs,
+        ...this.$attrs,
+      };
     },
-    calcShape() {
-      if (this.shape === undefined) {
-        return this.$aileAvatar.shape;
-      }
-      return this.shape;
+    avatarSrc() {
+      return this.mergeConfig.srcFormatter(this.src);
     },
-    calcStyle() {
-      if (!this.size) {
-        return {};
+
+    avatarStyle() {
+      if (!this.mergeConfig.size) {
+        return this.$attrs.style || {};
       }
 
       return {
-        width: this.size,
-        height: this.size
+        width: this.mergeConfig.size,
+        height: this.mergeConfig.size,
+        ...(this.$attrs.style || {}),
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

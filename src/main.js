@@ -50,6 +50,38 @@ createApp(App)
       config: {
         showTooltip: true
       }
+    },
+    dialog: {
+      config: {
+        cancelText: '取消',
+        cancelType: 'danger',
+        showConfirm: true,
+        confirmType: 'success'
+      },
+      attrs: {
+        width: '90%'
+      }
+    },
+    card: {
+      config: {
+        headerClass: 'ooooo',
+        headerStyle: {
+          backgroundColor: 'red'
+        }
+      }
+    },
+    avatar: {
+      attrs: {
+        fit: 'cover',
+      },
+      config: {
+        labelPlaceholder: '未知姓名',
+        labelStyle: {
+          fontSize: '20px',
+          backgroundColor: 'red'
+        },
+        labelFormatter: name => name.slice(0, 1).toUpperCase()
+      }
     }
   })
   .mount("#app");

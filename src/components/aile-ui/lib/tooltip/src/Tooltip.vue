@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { checkType } from '../../../utils/index.js';
+import { checkType, mergeClass } from '../../../utils/index.js';
 
 const DefaultProps = {
   placement: 'bottom',
@@ -39,24 +39,7 @@ export default {
       }
     },
     calcPopperClass() {
-      const classList = ['aile-tooltip__popper']
-      switch (checkType(this.popperClass)) {
-        case 'string':
-          classList.push(this.popperClass)
-          break;
-        case 'array':
-          classList.push(...this.popperClass)
-          break;
-        case 'object':
-          Object.keys(this.popperClass).forEach(key => {
-            if (!!this.popperClass[key]) {
-              classList.push(key)
-            }
-          })
-          break;
-        default:
-      }
-      return classList.filter(item => !!item).join(' ')
+      return mergeClass(['aile-tooltip__popper', this.popperClass])
     }
   }
 };

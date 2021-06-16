@@ -1,12 +1,7 @@
 <template>
   <el-dialog
-    v-bind="$attrs"
-    :title="title"
+    v-bind="mergeAttrs"
     :custom-class="calcCustomClass"
-    :append-to-body="calcAppendToBody"
-    :close-on-click-modal="calcCloseOnClickModal"
-    :close-on-press-escape="calcCloseOnPressEscape"
-    :width="width"
     @closed="handleClosed"
   >
     <template #title>
@@ -44,36 +39,8 @@
 </template>
 
 <script>
-// AileDialog的默认参数，可通过传入props.config进行覆盖
-const DefaultConfig = {
-  // 是否显示【确定】按钮
-  showConfirm: false,
-
-  // 【确定】按钮文字内容
-  confirmText: "确定",
-
-  // 【确定】按钮加载状态
-  confirmLoading: false,
-
-  // 【确定】按钮禁用状态
-  confirmDisabled: false,
-
-  // 是否展示【关闭】按钮
-  showCancel: true,
-
-  // 【关闭】按钮文字内容
-  cancelText: "关闭",
-
-  // 是否隐藏底部按钮区域
-  hideFooter: false,
-
-  // 底部按钮区域对齐方式
-  footerAlign: "right",
-
-  confirmType: "primary",
-
-  cancelType: "info",
-};
+import { mergeClass } from "../../../utils";
+import { DefaultConfig, DefaultDialogAttrs } from "./config";
 
 export default {
   name: "AileDialog",
@@ -83,30 +50,6 @@ export default {
     config: {
       type: Object,
       default: () => ({}),
-    },
-    appendToBody: {
-      type: Boolean,
-      default: undefined,
-    },
-    modalAppendToBody: {
-      type: Boolean,
-      default: undefined,
-    },
-    closeOnClickModal: {
-      type: Boolean,
-      default: undefined,
-    },
-    closeOnPressEscape: {
-      type: Boolean,
-      default: undefined,
-    },
-    width: {
-      type: String,
-      default: undefined,
-    },
-    title: {
-      type: String,
-      default: "",
     },
     class: {
       type: [String, Array, Object],
@@ -122,45 +65,18 @@ export default {
         ...this.config,
       };
     },
-    calcWidth() {
-      if (this.width !== undefined) {
-        return this.width;
-      }
-      return this.$aileDialog.width;
-    },
-    calcAppendToBody() {
-      if (this.appendToBody !== undefined) {
-        return this.appendToBody;
-      }
-      return this.$aileDialog.appendToBody;
-    },
-    calcCloseOnClickModal() {
-      if (this.closeOnClickModal !== undefined) {
-        return this.closeOnClickModal;
-      }
-      return this.$aileDialog.closeOnClickModal;
-    },
-    calcCloseOnPressEscape() {
-      if (this.closeOnPressEscape !== undefined) {
-        return this.closeOnPressEscape;
-      }
-      return this.$aileDialog.closeOnPressEscape;
+    mergeAttrs() {
+      return {
+        ...DefaultDialogAttrs,
+        ...this.$aileDialog.attrs,
+        ...this.$attrs,
+      };
     },
     calcCustomClass() {
-      let res = [
-        "aile-dialog",
-        this.mergeConfig.hideFooter && "is-hide-footer",
-      ];
-      if (typeof this.class === "string") {
-        res = res.concat(this.class.split(" "));
-      } else if (Array.isArray(this.class)) {
-        res = res.concat(this.class);
-      } else if (typeof this.class === "object") {
-        res = res.concat(
-          Object.keys(this.class).filter((key) => !!this.class[key])
-        );
-      }
-      return res.filter((item) => !!item).join(" ");
+      return mergeClass(
+        ["aile-dialog", this.mergeConfig.hideFooter && "is-hide-footer"],
+        this.class
+      );
     },
   },
   methods: {

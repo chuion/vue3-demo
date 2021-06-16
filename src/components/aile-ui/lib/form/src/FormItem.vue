@@ -144,8 +144,8 @@
       <div class="array-add" :class="[disabled && 'is-disabled']">
         <el-button
           :icon="
-            {}.hasOwnProperty.call(column, 'itemButtonIcon')
-              ? column.itemButtonIcon
+            {}.hasOwnProperty.call(column, 'buttonClass')
+              ? column.buttonClass
               : 'el-icon-plus'
           "
           :disabled="disabled"
@@ -154,7 +154,7 @@
           plain
           @click="handleAddItem"
         >
-          {{ column.itemButtonText || "新增" }}
+          {{ column.buttonText || "新增" }}
         </el-button>
       </div>
     </section>
@@ -379,8 +379,8 @@ export default defineComponent({
         } else if (Object.prototype.hasOwnProperty.call(it, "item")) {
           obj[it.prop] = [];
         } else {
-          obj[it.prop] = {}.hasOwnProperty.call(it, "value")
-            ? it.value
+          obj[it.prop] = {}.hasOwnProperty.call(it, "defaultValue")
+            ? it.defaultValue
             : undefined;
         }
       });

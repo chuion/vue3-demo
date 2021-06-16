@@ -4,7 +4,7 @@
 
 `aile-plus/dialog` 是一款对话框组件，基于 `Vue3` 和 `ElementPlus` 进行的二次封装。
 
-- 采用 `$attrs` 和 `$listeners` 接收参数和监听事件，无缝对接 `element-ui` 中的 `Dialog` 文档，上手快。
+- 采用 `$attrs` 接收参数和监听事件，无缝对接 `element-plus` 中的 `Dialog` 文档，上手快。
 - 支持安装时个性化配置
 
 ### Install 安装
@@ -22,17 +22,13 @@ yarn add aile-plus
 
 #### 全局配置项
 
-配置项内容可在全局引入时设置，或者直接使用 `<aile-dialog {...options} />` ，需注意：直接使用的优先级高于全局配置
-下表所列属性可在 `main.js` 中安装组件时进行统一配置：
+配置项内容可在全局引入时设置，下表所列属性可在 `main.js` 中安装组件时进行统一配置：
 
-|        参数        | 数据类型 | 默认值 |   可选值   |                说明                |
-| :----------------: | :------: | :----: | :--------: | :--------------------------------: |
-|       width        |  String  | '50%'  |     -      |            Dialog 宽度             |
-|    appendToBody    | Boolean  | false  | true/false | Dialog 自身是否插入至 body 元素上  |
-| modalAppendToBody  | Boolean  |  true  | true/false |    遮罩层是否插入至 body 元素上    |
-| closeOnClickModal  | Boolean  |  true  | true/false | 是否可以通过点击 modal 关闭 Dialog |
-| closeOnPressEscape | Boolean  |  true  | true/false |  是否可以通过按下 ESC 关闭 Dialog  |
-|     **config**     |  Object  |   -    |     -      |         详细配置见下方表格         |
+|    参数    | 数据类型 | 默认值 | 可选值 |                                   说明                                   |
+| :--------: | :------: | :----: | :----: | :----------------------------------------------------------------------: |
+| **config** |  Object  |   -    |   -    |                     [Config 配置项](#config-配置项)                      |
+| **attrs**  |  Object  |   -    |   -    | [ElDialog Props](https://element-plus.gitee.io/#/zh-CN/component/dialog) |
+
 
 #### config 配置项
 
@@ -51,15 +47,15 @@ yarn add aile-plus
 
 ### Attributes/Props 属性
 
-**支持 `ElementUI` 中 [Dialog](https://element-plus.org/#/zh-CN/component/Dialog) 的所有属性：`visible` / `title` / `width` / `fullscreen` / `top` / `modal` / `modal-append-to-body` 等**，此处仅展示额外属性：
+**支持 `ElementPlus` 中 [Dialog](https://element-plus.org/#/zh-CN/component/Dialog) 的所有属性：`visible` / `title` / `width` / `fullscreen` / `top` / `modal` / `modal-append-to-body` 等**，此处仅展示额外属性：
 
-|  参数  | 数据类型 | 默认值 |                 说明                 |
-| :----: | :------: | :----: | :----------------------------------: |
-| config |  object  |   -    | 配置项，字段同全局 config 配置项相同 |
+|  参数  | 数据类型 | 默认值 |              说明               |
+| :----: | :------: | :----: | :-----------------------------: |
+| config |  object  |   -    | [Config 配置项](#config-配置项) |
 
 ### Slot 插槽
 
-**支持 `ElementUI` 中 [Dialog](https://element-plus.org/#/zh-CN/component/Dialog) 的所有插槽**
+**支持 `ElementPlus` 中 [Dialog](https://element-plus.org/#/zh-CN/component/Dialog) 的所有插槽**
 
 ### Events 事件
 
@@ -77,35 +73,42 @@ yarn add aile-plus
 - 引入模块并初始化配置
 
 ```ts
-import Vue from 'vue';
-import ElementUI from 'element-ui';
-import 'element-ui/libs/theme-chalk/index.css';
-Vue.use(ElementUI);
+import { createApp } from 'vue'
+import App from './App.vue'
+import ElementPlus from 'element-plus'
+import 'element-plus/lib/theme-chalk/index.css';
+
+const app = createApp(App)
+app.use(ElementPlus)
 
 // 全量引入
-import AileUI from 'aile-plus';
-Vue.use(AileUI, {
+import AilePlus from 'aile-plus'
+app.use(AilePlus, {
   dialog: {
-    appendToBody: false, // Dialog 自身是否插入至 body 元素上
-    modalAppendToBody: true, // 遮罩层是否插入至 body 元素上
-    closeOnClickModal: true, // 是否可以通过点击 modal 关闭 Dialog
-    closeOnPressEscape: true, // 是否可以通过按下 ESC 关闭 Dialog
     config: {
-      footerAlign: 'center',
+      cancelText: '取消',
+      cancelType: 'danger',
+      showConfirm: true,
+      confirmType: 'success'
     },
+    attrs: {
+      width: '90%'
+    }
   },
 });
 
 // or 按需引入
 import AileDialog from 'aile-plus/lib/dialog';
-Vue.use(AileDialog, {
-  appendToBody: false, // Dialog 自身是否插入至 body 元素上
-  modalAppendToBody: true, // 遮罩层是否插入至 body 元素上
-  closeOnClickModal: true, // 是否可以通过点击 modal 关闭 Dialog
-  closeOnPressEscape: true, // 是否可以通过按下 ESC 关闭 Dialog
+app.use(AileDialog, {
   config: {
-    footerAlign: 'center',
+    cancelText: '取消',
+    cancelType: 'danger',
+    showConfirm: true,
+    confirmType: 'success'
   },
+  attrs: {
+    width: '90%'
+  }
 });
 ```
 
